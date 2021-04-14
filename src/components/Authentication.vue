@@ -32,6 +32,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -42,10 +43,11 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["setAuthFalse", "setAuthTrue"]),
     cancelAuth() {
       this.login = "";
       this.password = "";
-      this.authError = false;
+      this.setAuthFalse();
     },
     async checkAuth() {
       // Проверим на пустоту
@@ -62,10 +64,12 @@ export default {
         const res = await response.json();
         // Проверяем по состоянию
         if (res.status === 200) {
+          this.setAuthTrue();
           this.$router.push("/images");
         } else {
           // уведомляем о не правильной авторизации
           this.authError = true;
+          this.setAuthFalse();
         }
       }
     },

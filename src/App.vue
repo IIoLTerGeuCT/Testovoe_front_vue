@@ -8,7 +8,7 @@ export default {};
 </script>
 <style lang="scss">
 body {
-  background-color: lightgray;
+  background-color: #118ab2;
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;

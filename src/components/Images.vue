@@ -5,9 +5,13 @@
         class="container__card"
         v-for="(item, index) of images"
         :key="item.id"
-        @click="clickDetailsImage(item.id)"
       >
-        <ImageDetails :image="item" :index="index" />
+        <router-link
+          :to="{ name: 'Image', params: { id: item.id } }"
+          tag="button"
+        >
+          <ImageDetails :image="item" :index="index" />
+        </router-link>
       </div>
     </div>
   </div>
@@ -17,12 +21,12 @@ import ImageDetails from "@/components/ImageDetails";
 export default {
   data() {
     return {
-      images: null,
+      images: "",
       getUrl: "http://localhost:3001/api/images",
     };
   },
   components: { ImageDetails },
-  created() {
+  mounted() {
     this.getAllImages();
   },
   methods: {
@@ -33,9 +37,6 @@ export default {
       });
       const res = await response.json();
       this.images = res.data;
-    },
-    clickDetailsImage(id) {
-      console.log(id);
     },
   },
 };
@@ -50,9 +51,8 @@ export default {
 }
 .container__card {
   background-color: #fff;
-}
-.container__card {
+  opacity: 0.8;
   width: 300px;
-  border: 2px solid green;
+  border-radius: 10px;
 }
 </style>
